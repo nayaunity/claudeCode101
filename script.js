@@ -1,21 +1,64 @@
 document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('.section');
+    const scrollProgress = document.getElementById('scrollProgress');
+    const backToTop = document.getElementById('backToTop');
+
+    // Scroll progress bar
+    function updateScrollProgress() {
+        if (!scrollProgress) return;
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        scrollProgress.style.width = progress + '%';
+    }
+
+    // Back to top button visibility
+    function updateBackToTop() {
+        if (!backToTop) return;
+        if (window.scrollY > 400) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+    }
+
+    if (backToTop) {
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Scroll-triggered animations using IntersectionObserver
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate-on-scroll').forEach(function(el) {
+        observer.observe(el);
+    });
 
     // Update active nav link based on scroll position
     function updateActiveNav() {
-        let current = '';
+        var current = '';
 
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-
+        sections.forEach(function(section) {
+            var sectionTop = section.offsetTop;
             if (window.scrollY >= sectionTop - 200) {
                 current = section.getAttribute('id');
             }
         });
 
-        navLinks.forEach(link => {
+        navLinks.forEach(function(link) {
             link.classList.remove('active');
             if (link.getAttribute('data-section') === current) {
                 link.classList.add('active');
@@ -24,40 +67,31 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Smooth scroll to section on nav click (only for hash links)
-    navLinks.forEach(link => {
+    navLinks.forEach(function(link) {
         link.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
+            var href = this.getAttribute('href');
 
-            // Only handle hash links on the same page
             if (href.startsWith('#')) {
                 e.preventDefault();
-                const targetId = href.substring(1);
-                const targetSection = document.getElementById(targetId);
+                var targetId = href.substring(1);
+                var targetSection = document.getElementById(targetId);
 
                 if (targetSection) {
-                    targetSection.scrollIntoView({
-                        behavior: 'smooth'
-                    });
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
                 }
             }
-            // Let external links (like about.html) work normally
         });
     });
 
-    // Listen for scroll events
-    window.addEventListener('scroll', updateActiveNav);
+    // Combined scroll handler
+    function onScroll() {
+        updateActiveNav();
+        updateScrollProgress();
+        updateBackToTop();
+    }
 
-    // Set initial active state
-    updateActiveNav();
+    window.addEventListener('scroll', onScroll, { passive: true });
 
-    // Add hover effect to work items
-    const workItems = document.querySelectorAll('.work-item');
-    workItems.forEach(item => {
-        item.addEventListener('mouseenter', function() {
-            this.style.paddingLeft = '10px';
-        });
-        item.addEventListener('mouseleave', function() {
-            this.style.paddingLeft = '0';
-        });
-    });
+    // Set initial states
+    onScroll();
 });

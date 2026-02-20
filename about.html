@@ -10,11 +10,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="scroll-progress" id="scrollProgress"></div>
+
     <nav class="navbar">
-        <a href="index.html#home" class="nav-link"><span class="nav-dot"></span>HOME</a>
-        <a href="index.html#work" class="nav-link">WORK</a>
+        <a href="index.html" class="nav-link">HOME</a>
+        <a href="work.html" class="nav-link">WORK</a>
+        <a href="projects.html" class="nav-link">PROJECTS</a>
         <a href="trusted-by.html" class="nav-link">WHY ANTHROPIC</a>
-        <a href="about.html" class="nav-link active">ABOUT</a>
+        <a href="about.html" class="nav-link active"><span class="nav-dot"></span>ABOUT</a>
     </nav>
 
     <!-- About Section -->
@@ -29,18 +32,18 @@
             <span class="name-letter">R</span>
             <span class="name-letter">E</span>
         </div>
-        <div class="about-content">
-            <div class="about-column">
+        <div class="about-content stagger-children">
+            <div class="about-column animate-on-scroll">
                 <p><strong>I want to build AI that benefits humanity.</strong></p>
                 <p>Anthropic's mission to develop safe, beneficial AI systems resonates deeply with me. I believe the future of AI must be built responsibly, with careful attention to alignment, interpretability, and real-world impact.</p>
                 <p>I'm drawn to Anthropic because you're not just building powerful models—you're actively researching how to make them trustworthy and aligned with human values.</p>
             </div>
-            <div class="about-column">
+            <div class="about-column animate-on-scroll">
                 <p>I've spent the past year immersed in the Claude ecosystem—building with Claude Code, exploring MCP integrations, developing RAG pipelines, and pushing the boundaries of what's possible with Opus 4.5.</p>
                 <p>My background combines hands-on AI development with developer advocacy. I understand both the technical depth required to build great AI systems and the communication skills needed to help others succeed with them.</p>
                 <p>I've shipped production applications using the Claude API, contributed to open-source AI tooling, and created technical content that has reached hundreds of thousands of developers.</p>
             </div>
-            <div class="about-column">
+            <div class="about-column animate-on-scroll">
                 <p><strong>What I bring:</strong> Deep experience with LLM applications, strong Python and TypeScript skills, passion for AI safety and alignment, and a track record of shipping production-ready code.</p>
                 <p><strong>Technical expertise:</strong> Python, TypeScript, React, Node.js, Claude API, RAG pipelines, MCP, vector databases, prompt engineering, AI agent architectures.</p>
                 <p><strong>Let's connect:</strong> I'm ready to contribute to Anthropic's mission. Whether it's engineering, developer relations, or research support—I want to help build AI that's safe, beneficial, and transformative.</p>
@@ -54,5 +57,21 @@
             <a href="https://linkedin.com/in/theblackfemaleengineer" target="_blank">LinkedIn</a>
         </div>
     </section>
+
+    <footer class="site-footer">
+        <div class="footer-left">NAYA BERE</div>
+        <div class="footer-links">
+            <a href="mailto:NayaUnityBere@gmail.com">EMAIL</a>
+            <a href="https://linkedin.com/in/theblackfemaleengineer" target="_blank">LINKEDIN</a>
+            <a href="index.html">HOME</a>
+            <a href="work.html">WORK</a>
+            <a href="projects.html">PROJECTS</a>
+        </div>
+        <div class="footer-right">Los Angeles, CA</div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">&uarr;</button>
+
+    <script src="script.js"></script>
 </body>
 </html>
